@@ -26,8 +26,6 @@ body {
     font-size: 13px;
     min-height: 100vh;
     display: flex;
-    align-items: safe center;
-    justify-content: safe center;
     padding: 32px 16px;
     -webkit-font-smoothing: antialiased;
 }
@@ -35,6 +33,7 @@ body {
 .wrap {
     max-width: 1400px;
     width: 100%;
+    margin: auto;
     text-align: center;
     display: flex;
     flex-direction: column;
