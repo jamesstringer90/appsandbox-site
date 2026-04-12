@@ -8,6 +8,7 @@
 <title>App Sandbox</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="style.css">
+<script src="demo.js" defer></script>
 </head>
 <body>
     <main class="wrap">
@@ -16,15 +17,92 @@
         <p class="tagline">Isolated, GPU-accelerated Windows VMs on Windows&nbsp;11.</p>
         <p class="status"><span class="dot"></span> Coming soon</p>
 
-        <section class="shots">
-            <figure>
-                <img src="appsandbox.png" alt="App Sandbox VM manager interface" loading="lazy">
-                <figcaption>VM Manager — create, snapshot, and launch GPU-PV virtual machines.</figcaption>
-            </figure>
-            <figure>
-                <img src="appsandbox_display.png" alt="App Sandbox displaying a Windows 11 guest desktop" loading="lazy">
-                <figcaption>Integrated display — low-latency framebuffer streamed over Hyper-V sockets.</figcaption>
-            </figure>
+        <section class="demo" aria-label="App Sandbox interactive demo">
+            <div class="demo-stage">
+                <div class="demo-window demo-manager">
+                    <div class="demo-titlebar">
+                        <div class="demo-title">
+                            <img class="demo-title-icon" src="appsandbox.svg" alt="">
+                            <span>App Sandbox &ndash; VM Manager</span>
+                        </div>
+                        <div class="demo-title-btns">
+                            <span class="demo-title-btn">&#x2014;</span>
+                            <span class="demo-title-btn">&#x25A1;</span>
+                            <span class="demo-title-btn close">&#x2715;</span>
+                        </div>
+                    </div>
+                    <div class="demo-body">
+                        <section class="demo-section collapsed">
+                            <h2 class="collapsible"><span class="collapse-arrow">&#x25BC;</span> New VM Configuration</h2>
+                        </section>
+
+                        <section class="demo-section">
+                            <h2>Virtual Machines</h2>
+                            <div class="demo-table-wrap">
+                                <table class="demo-table">
+                                    <thead><tr>
+                                        <th>Name</th>
+                                        <th>OS</th>
+                                        <th>Status</th>
+                                        <th>Agent</th>
+                                        <th>CPU</th>
+                                        <th>RAM (MB)</th>
+                                        <th>HDD (GB)</th>
+                                        <th>GPU</th>
+                                        <th>Network</th>
+                                        <th>Snapshot</th>
+                                        <th class="icon-col">&#x25B6;&#xFE0F;</th>
+                                        <th class="icon-col" title="IDD Display">&#x1F4FA;</th>
+                                        <th class="icon-col" title="SSH">&gt;_</th>
+                                        <th class="icon-col">&#x23FB;</th>
+                                        <th class="icon-col">&#x2715;&#xFE0F;</th>
+                                        <th class="icon-col">&#x1F5D1;&#xFE0F;</th>
+                                        <th class="icon-col">&#x270F;&#xFE0F;</th>
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>MySandbox</td>
+                                            <td>Windows</td>
+                                            <td id="demo-status" class="status-stopped">Stopped</td>
+                                            <td><span id="demo-agent-dot" class="agent-dot disabled"></span></td>
+                                            <td>8</td>
+                                            <td>16384 MB</td>
+                                            <td>64 GB</td>
+                                            <td>Default GPU</td>
+                                            <td>NAT</td>
+                                            <td class="snap-cell">
+                                                <span class="snap-wrap">
+                                                    <select class="snap-select" disabled><option>No snapshots</option></select>
+                                                </span>
+                                            </td>
+                                            <td class="icon-col"><button id="demo-start" class="icon-btn start" type="button">&#x25B6;&#xFE0F;</button></td>
+                                            <td class="icon-col"><button id="demo-idd" class="icon-btn connect-idd inactive" type="button" disabled>&#x1F4FA;</button></td>
+                                            <td class="icon-col"><button class="icon-btn ssh hidden" type="button" disabled>&gt;_</button></td>
+                                            <td class="icon-col"><button id="demo-shutdown" class="icon-btn shutdown inactive" type="button" disabled>&#x23FB;</button></td>
+                                            <td class="icon-col"><button id="demo-stop" class="icon-btn stop inactive" type="button" disabled>&#x2715;&#xFE0F;</button></td>
+                                            <td class="icon-col"><button class="icon-btn delete" type="button">&#x1F5D1;&#xFE0F;</button></td>
+                                            <td class="icon-col"><button class="icon-btn edit" type="button">&#x270F;&#xFE0F;</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section class="demo-section demo-log-section">
+                            <h2>Log</h2>
+                            <div id="demo-log" class="demo-log"></div>
+                        </section>
+                    </div>
+                </div>
+
+                <div id="demo-display-window" class="demo-display">
+                    <img src="appsandbox_display.png" alt="MySandbox Windows 11 desktop" loading="lazy">
+                </div>
+            </div>
+
+            <svg id="demo-cursor" class="demo-cursor" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <path d="M4 2 L20 14 L13 14 L16 22 L13 23 L10 15 L4 20 Z" fill="#ffffff" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/>
+            </svg>
         </section>
 
         <footer>
