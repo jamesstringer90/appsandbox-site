@@ -287,6 +287,39 @@ footer a:hover {
     margin-right: 2px;
 }
 
+/* Section header row: title on left, action button on right */
+.demo-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--ctrl-border);
+}
+.demo-section-header h2 {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.demo-btn {
+    background: var(--ctrl-bg);
+    color: var(--text);
+    border: 1px solid var(--ctrl-border);
+    border-radius: var(--radius);
+    padding: 2px 14px;
+    font-size: 12px;
+    font-family: inherit;
+    height: 26px;
+    white-space: nowrap;
+    cursor: default;
+}
+
+.demo-btn-primary {
+    background: #2a5a8a;
+    border-color: #3a7aba;
+}
+
 /* VM table */
 .demo-table-wrap {
     border: 1px solid var(--ctrl-border);
