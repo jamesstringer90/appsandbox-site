@@ -70,6 +70,24 @@ window.mountAgentDemo = function(host, onClose) {
     }
     let timer = null, closed = false, index = 0, displays = [], build = null;
     const composer = win.querySelector(".codex-input"), working = win.querySelector(".codex-working"), footer = win.querySelector(".codex-footer");
+    const mobileInput = window.matchMedia("(max-width:650px)");
+    function syncMobileInput() {
+        const readOnly = mobileInput.matches;
+        composer.contentEditable = readOnly ? "false" : "true";
+        composer.setAttribute("aria-readonly", String(readOnly));
+        term.options.disableStdin = readOnly;
+        const textarea = win.querySelector(".xterm-helper-textarea");
+        if (textarea) {
+            textarea.disabled = readOnly;
+            textarea.readOnly = readOnly;
+            textarea.setAttribute("inputmode", readOnly ? "none" : "text");
+        }
+        if (readOnly && (document.activeElement === composer || document.activeElement === textarea)) {
+            document.activeElement.blur();
+        }
+    }
+    syncMobileInput();
+    mobileInput.addEventListener("change", syncMobileInput);
     const app = document.querySelector("#app"), send = (os, state, name) => app.contentWindow.postMessage({
         type: "demo-agent-state",
         os: guestOs(os),
@@ -572,6 +590,7 @@ window.mountAgentDemo = function(host, onClose) {
         qaEpoch++;
         cancelTimer(timer);
         fitObserver.disconnect();
+        mobileInput.removeEventListener("change", syncMobileInput);
         term.dispose();
         win.remove();
         host.querySelector(".mobile-about")?.remove();
