@@ -523,7 +523,7 @@ window.mountAgentDemo = function(host, onClose) {
     document.addEventListener("demo-resume", resumeTour);
     document.addEventListener("demo-user-input", pauseTour);
     function typePrompt() {
-        const prompt = macHost ? "Hey I need you to spin up a windows and macOS VM to verify this change runs and passes tests on both platforms; use computer use to do QA once the build is running on each VM, then give me a simple QA report in chat" : "Hey I need you to spin up a windows and ubuntu VM to verify this change runs and passes tests on both platforms; use computer use to do QA once the build is running on each VM, then give me a simple QA report in chat";
+        const prompt = macHost ? "hey, i need you to spin up local Windows and macOS VMs to verify this change runs and passes tests on both platforms. use computer use to do QA once the build is running on each VM, then give me a simple QA report in chat." : "hey, i need you to spin up GPU-accelerated local Windows and Ubuntu VMs to verify this change runs and passes tests on both platforms. use computer use to do QA once the build is running on each VM, then give me a simple QA report in chat.";
         let n = 0;
         composer.textContent = "";
         footer.textContent = "";
