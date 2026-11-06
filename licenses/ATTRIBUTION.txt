@@ -14,7 +14,7 @@ https://github.com/ubuntu/yaru/tree/master/icons/src/fullcolor/default/apps
 Creative Commons Attribution ShareAlike 4.0: https://creativecommons.org/licenses/by-sa/4.0/
 Modified only SVG viewBox/dimensions to select the original 256px vector artwork from the source artboard. Adaptations retain CC BY-SA 4.0.
 
-Windows wallpaper: vector contours reconstructed from a Windows desktop reference; no permissive redistribution license has been verified. macOS wallpaper: original SVG artwork. Small system glyphs and cursor SVGs are authored approximations. Icons identify their respective software and do not imply endorsement.
+Windows wallpaper: original “Blue Current” SVG artwork authored for AppSandbox using independently designed Bézier paths and gradients. No traced contours, raster assets, or sampled textures. macOS wallpaper: original SVG artwork. Small system glyphs and cursor SVGs are authored approximations. Icons identify their respective software and do not imply endorsement.
 
 Codex cloud icon: vector recreation based on an official reference image supplied by the user. It was not copied from the Codex repository SVG. OpenAI names and marks belong to OpenAI. No endorsement is implied. Reference-image provenance does not establish a redistribution license.
 

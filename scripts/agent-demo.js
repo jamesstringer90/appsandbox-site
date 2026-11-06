@@ -2,12 +2,13 @@ window.mountAgentDemo = function(host, onClose) {
     const macHost = host.classList.contains("mac-host"), project = macHost ? SampleProject : DesignProject, projectName = macHost ? "resonance" : "orbit-studio", appName = macHost ? "Resonance" : "Orbit Studio", secondLabel = macHost ? "macOS" : "Ubuntu", guestOs = system => macHost ? system === "ubuntu" ? "mac" : "mac-windows" : system;
     const win = document.createElement("div");
     win.className = "capability-window agent-terminal";
-    win.innerHTML = '<div class="titlebar"><span>Build and test ' + appName + '</span><button class="agent-close" aria-label="Close Codex">×</button></div><div class="agent-terminal-body"></div><div class="codex-working"></div><div class="codex-composer"><span>›</span><span class="codex-input" contenteditable="true" role="textbox" aria-label="Codex prompt" data-placeholder="Ask Codex to do anything"></span><i class="codex-caret"></i></div><div class="codex-footer">? for shortcuts</div>';
+    win.innerHTML = '<div class="titlebar"><span>Build and test ' + appName + '</span><button class="agent-close" aria-label="Close Codex">×</button></div><div class="agent-terminal-body"></div><div class="codex-working"></div><div class="codex-composer"><span>›</span><span class="codex-input" aria-label="Codex prompt" data-placeholder="Ask Codex to do anything"></span><i class="codex-caret"></i></div><div class="codex-footer">? for shortcuts</div>';
     host.append(win);
     host.dataset.mobilePhase = "codex";
     const term = new Terminal({
         cols: Math.max(36, Math.floor((win.clientWidth - 24) / 6.6)),
         rows: 18,
+        disableStdin: true,
         fontSize: innerWidth <= 650 ? 14 : 12,
         fontFamily: '"Cascadia Mono",Consolas,"Courier New",monospace',
         convertEol: true,
@@ -20,6 +21,11 @@ window.mountAgentDemo = function(host, onClose) {
         }
     });
     term.open(win.querySelector(".agent-terminal-body"));
+    if (term.textarea) {
+        term.textarea.readOnly = true;
+        term.textarea.inputMode = "none";
+        term.textarea.tabIndex = -1;
+    }
     const fitObserver = new ResizeObserver(() => {
         const b = win.querySelector(".agent-terminal-body"), fs = innerWidth <= 650 ? 14 : 12;
         term.options.fontSize = fs;

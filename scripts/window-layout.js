@@ -29,7 +29,14 @@
             transform: "none"
         });
     }
+    // Track browser toolbar changes without treating pinch zoom as a resize.
+    function syncMobileViewport() {
+        const viewport = window.visualViewport;
+        if (!smallScreen() || (viewport && viewport.scale !== 1)) return;
+        document.documentElement.style.setProperty("--mobile-viewport-height", (viewport?.height || window.innerHeight) + "px");
+    }
     function arrange() {
+        syncMobileViewport();
         scheduled = false;
         if (applying || document.body.classList.contains("window-drag-active")) return;
         const all = [ ...host.querySelectorAll(selector) ].filter(shown);
@@ -45,7 +52,7 @@
             bottom: hr.bottom
         };
         const x = Math.max(small ? 8 : 84, (b.left - hr.left) / sx + 8);
-        const y = Math.max(small ? 80 : 34, (b.top - hr.top) / sy + 8);
+        const y = Math.max(small ? 8 : 34, (b.top - hr.top) / sy + 8);
         const w = Math.max(1, (b.right - hr.left) / sx - x - 8);
         const h = Math.max(1, (b.bottom - hr.top) / sy - y - 8), gap = 12;
         if (w < 80 || h < 60) return;

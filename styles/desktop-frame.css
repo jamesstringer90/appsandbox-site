@@ -145,3 +145,39 @@ body:has(.mac-host) .downloads{font-family:-apple-system,BlinkMacSystemFont,'SF 
 .downloads a.app-dialog-button:hover{background:#3a3a3a;border-color:#555}
 .download-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 @media(max-width:450px){.downloads>.download-dialog{padding:14px!important}.download-table th,.download-table td{padding:7px 5px}.download-table th{white-space:normal}.downloads a.app-download-button{padding:4px 7px}}
+
+/* Mobile: give the two guest displays the space, not an empty shortcut strip.
+   Keep desktop geometry and the Codex -> VMs -> Codex sequence unchanged. */
+@media(max-width:650px){
+ :root{--mobile-viewport-height:100vh}
+ @supports(height:100dvh){:root{--mobile-viewport-height:100dvh}}
+ main,.experience,.demo-shell,.stage,.host-desktop{height:var(--mobile-viewport-height)!important;bottom:auto!important}
+ .host-desktop{padding-top:env(safe-area-inset-top,0px)!important;padding-bottom:env(safe-area-inset-bottom,0px)!important;box-sizing:border-box}
+ .host-taskbar{bottom:env(safe-area-inset-bottom,0px)!important}
+ .host-choice{top:calc(var(--mobile-viewport-height) - env(safe-area-inset-bottom,0px) - 95px)!important;bottom:auto!important;padding:4px;gap:3px}
+ .host-choice button{padding:4px 8px}
+ .desktop-download,.desktop-github,.experience-controls{top:calc(var(--mobile-viewport-height) - env(safe-area-inset-bottom,0px) - 95px)!important;bottom:auto!important;left:auto!important;width:40px!important;max-width:40px!important;height:36px!important;padding:4px!important;gap:0!important}
+ .desktop-download{right:88px!important;font-size:0!important}
+ .desktop-github{right:48px!important}
+ .experience-controls{right:8px!important}
+ .desktop-download svg,.desktop-github svg,.experience-controls .codex-mark{width:24px!important;height:24px!important;min-height:24px!important;flex-basis:24px!important}
+ .desktop-github span,.experience-controls [data-feature=agent]>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ .experience-controls [data-feature=agent]{height:28px!important;min-height:28px!important;width:32px!important;padding:0!important}
+ .host-desktop .agent-display.windows-native>.native-caption{--caption-height:30px}
+ .host-desktop .agent-sample-app.windows-native>.native-caption{--caption-height:30px}
+ .host-desktop .agent-sample-app{--guest-app-top:4px;--guest-app-bottom:34px;top:var(--guest-app-top)!important;bottom:var(--guest-app-bottom)!important;height:calc(100% - var(--guest-app-top) - var(--guest-app-bottom))!important}
+ .host-desktop .guest-desktop.ubuntu .agent-sample-app{--guest-app-top:24px;--guest-app-bottom:4px}
+ .host-desktop .guest-desktop.mac .agent-sample-app{--guest-app-top:24px;--guest-app-bottom:40px}
+ .guest-desktop.windows>.guest-taskbar{height:30px}
+ .guest-desktop.windows>.guest-taskbar .task-search{height:24px}
+ .guest-desktop.windows>.guest-taskbar .tray{font-size:9px}
+ .host-desktop .guest-desktop.ubuntu .agent-sample-title{height:28px;min-height:28px;padding-top:0;padding-bottom:0}
+ .mobile-about{top:calc(env(safe-area-inset-top,0px) + 34px);bottom:calc(env(safe-area-inset-bottom,0px) + 105px)}
+}
+.host-desktop:not(.mac-host)>.host-taskbar,.guest-desktop.windows>.guest-taskbar{background:rgba(30,30,30,.96);color:#f5f5f5;border-top:1px solid #ffffff20;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.host-desktop:not(.mac-host)>.host-taskbar .system-icons,.guest-desktop.windows>.guest-taskbar .system-icons{color:#f5f5f5}
+.host-desktop:not(.mac-host)>.host-taskbar .task-search,.guest-desktop.windows>.guest-taskbar .task-search{background:#ffffff16;border-color:#ffffff20;color:#dedee3;box-shadow:0 1px 0 #ffffff12 inset}
+.host-desktop:not(.mac-host)>.host-taskbar .shell-task:hover{background:#ffffff12}.host-desktop:not(.mac-host)>.host-taskbar .shell-task.active{background:#ffffff18}.host-desktop:not(.mac-host)>.host-taskbar .shell-task.running:after{background:#a7a9af}.host-desktop:not(.mac-host)>.host-taskbar .shell-task.active:after{background:#76b9ed}
+.host-desktop:not(.mac-host)>.host-taskbar .task-view-icon rect:first-child,.guest-desktop.windows>.guest-taskbar .task-view-icon rect:first-child{fill:#b6b6b6}.host-desktop:not(.mac-host)>.host-taskbar .task-view-icon rect:nth-child(2),.guest-desktop.windows>.guest-taskbar .task-view-icon rect:nth-child(2){fill:#6c6c6c}
+
+.host-desktop:not(.mac-host)>.host-taskbar .weather span{color:#ededed;font-size:11px}.host-desktop:not(.mac-host)>.host-taskbar>.tray{font-size:11px}.host-desktop:not(.mac-host)>.host-taskbar .task-search{background:#363636;border-color:#ffffff18}

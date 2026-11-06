@@ -13,5 +13,5 @@ assets/979b221134889d43.ttf → fonts/Ubuntu-Medium.ttf; see ATTRIBUTION.txt and
 scripts/xterm.js and styles/xterm.css → xterm.txt (MIT).
 scripts/app-documents.js and AppSandbox logo → ../LICENSE (MIT).
 scripts/design-build.js and source/orbit-studio/* → suzanne-GPL.txt (GPL-2.0-or-later); source/build-orbit.mjs rebuilds the module.
-scripts/desktop-art.js → Windows reference-derived wallpaper, Canonical mascot, and attributed icon assets; see ATTRIBUTION.txt.
+scripts/desktop-art.js → original Windows-style wallpaper, Canonical mascot, and attributed icon assets; see ATTRIBUTION.txt.
 scripts/mac-desktop.js → original wallpaper and authored system-icon approximations; see ATTRIBUTION.txt.
