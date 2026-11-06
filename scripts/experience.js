@@ -1,3 +1,89 @@
+// Unlock future music frames synchronously within a real user gesture.
+(() => {
+    const slots = [], documents = new WeakSet();
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    function unlock(context) {
+        if (!context || context.state === "closed") return;
+        try {
+            const source = context.createBufferSource();
+            source.buffer = context.createBuffer(1, 1, context.sampleRate);
+            source.connect(context.destination);
+            source.onended = () => source.disconnect();
+            source.start(0);
+            context.resume().catch(() => {});
+        } catch (_) {}
+    }
+    function reclaim() {
+        for (const slot of slots) if (slot.frame && !slot.frame.isConnected) {
+            slot.frame = null;
+            slot.caller = null;
+            slot.context.onstatechange = null;
+        }
+        for (let i = slots.length - 1; i >= 0; i--) if (slots[i].context.state === "closed") slots.splice(i, 1);
+    }
+    function prime(event) {
+        if (!event.isTrusted || !Audio) return;
+        if (event.type === "keydown" && !["Enter", " "].includes(event.key)) return;
+        try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (_) {}
+        reclaim();
+        while (slots.length < 2) {
+            try { slots.push({ context: new Audio(), frame: null, caller: null }); } catch (_) { break; }
+        }
+        for (const slot of slots) if (slot.context.state !== "running" || !slot.unlocked) {
+            unlock(slot.context);
+            slot.unlocked = true;
+        }
+        for (const frame of document.querySelectorAll("iframe.sample-runtime")) {
+            try { frame.contentWindow.resumeAudioFromGesture?.(event); } catch (_) {}
+        }
+    }
+    window.acquireDemoAudioContext = caller => {
+        const frame = [...document.querySelectorAll("iframe.sample-runtime")].find(f => f.contentWindow === caller);
+        if (!frame) return null;
+        reclaim();
+        const assigned = slots.find(s => s.caller === caller);
+        if (assigned) return assigned.context;
+        const free = slots.find(s => !s.frame);
+        if (!free) return null;
+        free.frame = frame;
+        free.caller = caller;
+        return free.context;
+    };
+    window.releaseDemoAudioContext = (caller, context) => {
+        const slot = slots.find(s => s.caller === caller && s.context === context);
+        if (!slot) return false;
+        slot.frame = null;
+        slot.caller = null;
+        context.onstatechange = null;
+        return true;
+    };
+    function watch(doc) {
+        if (!doc || documents.has(doc)) return;
+        documents.add(doc);
+        for (const type of ["click", "touchend", "keydown"]) doc.addEventListener(type, prime, { capture: true, passive: true });
+    }
+    function watchFrames() {
+        for (const frame of document.querySelectorAll("iframe")) {
+            if (!frame.dataset.audioGestureWatched) {
+                frame.dataset.audioGestureWatched = "true";
+                frame.addEventListener("load", () => { try { watch(frame.contentDocument); } catch (_) {} });
+            }
+            try { watch(frame.contentDocument); } catch (_) {}
+        }
+    }
+    watch(document);
+    const observer = new MutationObserver(records => {
+        if (records.some(record => [...record.addedNodes].some(node => node.nodeType === 1 && (node.tagName === "IFRAME" || node.querySelector?.("iframe"))))) watchFrames();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    watchFrames();
+    window.addEventListener("pagehide", event => {
+        if (event.persisted) return;
+        observer.disconnect();
+        for (const slot of slots) { try { slot.context.close().catch(() => {}); } catch (_) {} }
+    });
+})();
+
 (() => {
     const stage = document.querySelector(".host-desktop");
     let stopAgent = null, idleTimer = null, held = false, editing = false, hostStart = null, finished = false;
