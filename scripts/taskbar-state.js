@@ -36,6 +36,17 @@
         }));
         update();
     }
+    function appGroupOpen() {
+        const existing=document.querySelector('.shell-app-picker');if(existing){existing.remove();return;}
+        const windows=[manager,...document.querySelectorAll('.guest-window.connected,.guest-window[data-shell-minimized]')];
+        if(windows.length===1){focus(manager);return;}
+        const picker=document.createElement('div');picker.className='shell-app-picker';picker.setAttribute('role','menu');picker.setAttribute('aria-label','AppSandbox windows');
+        picker.style.cssText='position:fixed;z-index:1000;bottom:54px;left:50%;transform:translateX(-50%);max-width:calc(100vw - 24px);min-width:200px;background:#292929;color:#eee;border:1px solid #555;border-radius:7px;padding:5px;box-shadow:0 8px 28px #0008;font:12px Segoe UI,Arial,sans-serif';
+        windows.forEach(el=>{const b=document.createElement('button');b.setAttribute('role','menuitem');b.textContent=el===manager?'AppSandbox':el.querySelector('.titlebar span')?.textContent||'VM display';b.style.cssText='display:block;width:100%;border:0;border-radius:4px;background:transparent;color:inherit;text-align:left;padding:10px 12px;font:inherit;cursor:pointer';b.onmouseenter=()=>b.style.background='#444';b.onmouseleave=()=>b.style.background='transparent';b.onclick=e=>{e.stopPropagation();picker.remove();focus(el);};picker.append(b);});
+        document.body.append(picker);
+        const dismiss=e=>{if(!picker.contains(e.target)&&!e.target.closest('.shell-manager')){picker.remove();document.removeEventListener('pointerdown',dismiss,true);}};document.addEventListener('pointerdown',dismiss,true);
+        picker.addEventListener('keydown',e=>{if(e.key==='Escape')picker.remove()});
+    }
     const terminalIcon = '<img src="assets/a782d32012d11c4f.svg" alt="Windows Terminal">';
     const vmIcon = '<img src="assets/1bd6d68bc7bcb9cb.svg" alt="App Sandbox viewer">';
     function terminalOpen() {
@@ -145,7 +156,7 @@
             pin.setAttribute("aria-label", "Open AppSandbox");
             img.replaceWith(pin);
             pin.append(img);
-            pin.onclick = () => focus(manager);
+            pin.onclick = appGroupOpen;
         }
         let terminalPin = bar.querySelector(".shell-terminal");
         if (!terminalPin) {
@@ -159,22 +170,13 @@
         const guests = [ ...document.querySelectorAll(".guest-window.connected,.guest-window[data-shell-minimized]") ], terms = [ ...document.querySelectorAll(".capability-window:not([hidden])") ].filter(e => e.querySelector(".xterm"));
         terminalPin.classList.toggle("running", terms.length > 0 || [ ...document.querySelectorAll(".capability-window") ].some(e => e.dataset.minimized));
         terminalPin.classList.toggle("active", terms.includes(active));
-        const next = [ manager.hidden, manager.dataset.closed, active?.className, guests.map(e => e.className).join("|"), terms.map(e => e.className).join("|") ].join(";");
-        pin.classList.toggle("running", !manager.dataset.closed);
-        pin.classList.toggle("active", active === manager && !manager.hidden);
-        pin.setAttribute("aria-pressed", String(active === manager && !manager.hidden));
-        if (next === signature && bar.querySelectorAll(".shell-dynamic").length === guests.length) return;
-        signature = next;
-        bar.querySelectorAll(".shell-dynamic").forEach(e => e.remove());
-        for (const [el, icon, label] of [ ...guests.map(e => [ e, vmIcon, e.querySelector(".titlebar span")?.textContent || "VM display" ]) ]) {
-            const button = document.createElement("button");
-            button.className = "shell-task shell-dynamic running" + (active === el ? " active" : "");
-            button.title = label;
-            button.setAttribute("aria-label", label);
-            button.innerHTML = icon;
-            button.onclick = () => focus(el);
-            bar.append(button);
-        }
+        const groupActive=(active===manager&&!manager.hidden)||guests.includes(active);
+        pin.classList.toggle("running",!manager.dataset.closed||guests.length>0);
+        pin.classList.toggle("active",groupActive);
+        pin.setAttribute("aria-pressed",String(groupActive));
+        pin.setAttribute("aria-label","AppSandbox windows");
+        pin.setAttribute("aria-haspopup","menu");
+        bar.querySelectorAll(".shell-dynamic").forEach(e=>e.remove());
     }
     document.addEventListener("click", update);
     window.addEventListener("message", () => setTimeout(update, 0));

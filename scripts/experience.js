@@ -142,7 +142,7 @@
                 open();
                 document.body.dataset.autoplay = "playing";
             }
-        }, 3500);
+        }, 1500);
     }
     document.addEventListener("demo-user-input", scheduleResume);
     document.addEventListener("keydown", e => {
