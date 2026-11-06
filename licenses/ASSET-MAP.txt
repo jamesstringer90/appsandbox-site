@@ -1,0 +1,17 @@
+Asset file → original asset / applicable notice
+assets/1bd6d68bc7bcb9cb.svg → appsandbox.svg; see ATTRIBUTION.txt and component license.
+assets/c2fa94b03234dab5.svg → icons/app-center.svg; see ATTRIBUTION.txt and component license.
+assets/228f22cc4bf16033.svg → icons/edge.svg; see ATTRIBUTION.txt and component license.
+assets/cae4ab5163febbce.svg → icons/windows-cursor.svg; see ATTRIBUTION.txt and component license.
+assets/a782d32012d11c4f.svg → icons/windows-terminal.svg; see ATTRIBUTION.txt and component license.
+assets/9be5077e2977bd19.svg → icons/terminal-app.svg; see ATTRIBUTION.txt and component license.
+assets/f31b10673f2e6251.svg → icons/firefox.svg; see ATTRIBUTION.txt and component license.
+assets/c9565504836d29f1.svg → icons/yaru-cursor.svg; see ATTRIBUTION.txt and component license.
+assets/bfd3c550f0552ddf.ttf → fonts/Ubuntu-Regular.ttf; see ATTRIBUTION.txt and component license.
+assets/979b221134889d43.ttf → fonts/Ubuntu-Medium.ttf; see ATTRIBUTION.txt and component license.
+
+scripts/xterm.js and styles/xterm.css → xterm.txt (MIT).
+scripts/app-documents.js and AppSandbox logo → ../LICENSE (MIT).
+scripts/design-build.js and source/orbit-studio/* → suzanne-GPL.txt (GPL-2.0-or-later); source/build-orbit.mjs rebuilds the module.
+scripts/desktop-art.js → Windows reference-derived wallpaper, Canonical mascot, and attributed icon assets; see ATTRIBUTION.txt.
+scripts/mac-desktop.js → original wallpaper and authored system-icon approximations; see ATTRIBUTION.txt.

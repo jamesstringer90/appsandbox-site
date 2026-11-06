@@ -1,0 +1,29 @@
+Firefox logo: Mozilla, official browser source SVG (unchanged).
+https://github.com/mozilla-firefox/firefox/blob/main/browser/branding/official/content/about-logo.svg
+Mozilla Public License 2.0; see firefox-MPL.txt. Trademark rights remain with Mozilla.
+
+Microsoft Edge 2019 logo: Microsoft Corporation, SVG from Wikimedia Commons.
+https://commons.wikimedia.org/wiki/File:Microsoft_Edge_logo_(2019).svg
+Commons identifies the asset as MIT/Expat licensed. Trademark rights remain with Microsoft.
+Copyright (c) Microsoft Corporation.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Ubuntu Yaru terminal-app and app-center icons: Yaru contributors.
+https://github.com/ubuntu/yaru/tree/master/icons/src/fullcolor/default/apps
+Creative Commons Attribution ShareAlike 4.0: https://creativecommons.org/licenses/by-sa/4.0/
+Modified only SVG viewBox/dimensions to select the original 256px vector artwork from the source artboard. Adaptations retain CC BY-SA 4.0.
+
+Windows wallpaper: vector contours reconstructed from a Windows desktop reference; no permissive redistribution license has been verified. macOS wallpaper: original SVG artwork. Small system glyphs and cursor SVGs are authored approximations. Icons identify their respective software and do not imply endorsement.
+
+Codex cloud icon: vector recreation based on an official reference image supplied by the user. It was not copied from the Codex repository SVG. OpenAI names and marks belong to OpenAI. No endorsement is implied. Reference-image provenance does not establish a redistribution license.
+
+Windows Terminal icon: exact vector from https://github.com/microsoft/terminal/blob/main/res/terminal/Terminal.svg . MIT license: windows-terminal-MIT.txt.
+
+Ubuntu Resolute Raccoon mascot: Canonical Ltd. Exact vector source https://www.omgubuntu.co.uk/wp-content/uploads/2026/02/ubuntu-mascot-dark.svg ; marks remain Canonical property. A permissive redistribution license for this mascot source has not been verified.
+
+Suzanne mesh geometry: Blender Authors, GPL-2.0-or-later. Derived from https://github.com/blender/blender/blob/main/source/blender/bmesh/operators/bmo_primitive.cc (monkeyv/monkeyf arrays). Geometry and corresponding readable source are included in scripts/design-build.js; full GPL text is in suzanne-GPL.txt.
+
+Ubuntu Regular and Ubuntu Medium: Copyright 2011 Canonical Ltd. Ubuntu Font Licence 1.0; see ubuntu-font.txt.
+
+Suzanne corresponding editable source: source/orbit-studio/main.js, style.css and body.html. Regenerate scripts/design-build.js with node source/build-orbit.mjs; no package dependencies are required. The combined Orbit Studio module and its source are distributed under GPL-2.0-or-later. This does not resolve legal questions about the scope of a combined derivative work.
