@@ -1,5 +1,4 @@
 (() => {
-    const releasePage = "https://github.com/jamesstringer90/appsandbox/releases/latest";
     const endpoint = "https://api.github.com/repos/jamesstringer90/appsandbox/releases/latest";
     const platforms = ["win-x64", "win-arm64", "mac-arm64"];
     const controller = new AbortController();
@@ -32,10 +31,6 @@
             const label = document.querySelector("[data-release-label]");
             if (label) label.textContent = release.tag_name + " is available";
         })
-        .catch(() => {
-            document.querySelectorAll("[data-download]").forEach(link => {
-                link.href = releasePage;
-            });
-        })
+        .catch(() => { /* Keep the verified download links in the HTML. */ })
         .finally(() => clearTimeout(timeout));
 })();
